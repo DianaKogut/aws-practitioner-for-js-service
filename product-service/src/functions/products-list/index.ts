@@ -27,6 +27,13 @@ export default {
 							},
 							responseModels: {},
 						},
+						{
+							statusCode: StatusCode.ServerError,
+							responseBody: {
+								description: 'Internal Server Error',
+							},
+							responseModels: {},
+						},
 					],
 				},
 			},

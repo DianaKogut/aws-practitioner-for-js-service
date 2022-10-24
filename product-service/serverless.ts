@@ -2,10 +2,12 @@ import type { AWS } from '@serverless/typescript';
 
 import getProductsList from '@functions/products-list';
 import getProductsById from '@functions/product-by-id';
+import createProduct from '@functions/create-product';
 
 const serverlessConfiguration: AWS = {
 	service: 'product-service',
 	frameworkVersion: '3',
+	useDotenv: true,
 	plugins: ['serverless-esbuild', 'serverless-openapi-documentation'],
 	provider: {
 		name: 'aws',
@@ -18,10 +20,34 @@ const serverlessConfiguration: AWS = {
 		environment: {
 			AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
 			NODE_OPTIONS: '--enable-source-maps --stack-trace-limit=1000',
+			DYNAMODB_PRODUCTS_TABLE: '${env:DYNAMODB_PRODUCTS_TABLE}',
+			DYNAMODB_STOCKS_TABLE: '${env:DYNAMODB_STOCKS_TABLE}'
+		},
+		iam: {
+			role: {
+				statements: [
+					{
+						Effect: 'Allow',
+						Action: [
+							'dynamodb:Query',
+							'dynamodb:Scan',
+							'dynamodb:GetItem',
+							'dynamodb:PutItem',
+							'dynamodb:UpdateItem',
+							'dynamodb:DeleteItem',
+						],
+						Resource: [
+							'arn:aws:dynamodb:${aws:region}:*:table/${self:provider.environment.DYNAMODB_PRODUCTS_TABLE}',
+							'arn:aws:dynamodb:${aws:region}:*:table/${self:provider.environment.DYNAMODB_STOCKS_TABLE}',
+						]
+
+					},
+				],
+			},
 		},
 	},
 	// import the function via paths
-	functions: { getProductsList, getProductsById },
+	functions: { getProductsList, getProductsById, createProduct },
 	package: { individually: true },
 	custom: {
 		esbuild: {

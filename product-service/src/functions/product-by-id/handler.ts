@@ -1,22 +1,31 @@
-import { getMockedProducts } from '@functions/mock/products-mock';
-import { formatBadRequestJSONResponse, formatJSONResponse } from '@libs/api-gateway';
+import { formatBadRequestJSONResponse, formatServerErrorJSONResponse, formatJSONResponse } from '@libs/api-gateway';
 import { middyfy } from '@libs/lambda';
 import { APIGatewayEvent } from 'aws-lambda';
+import { ProductsService } from 'src/services/products.service';
 
 const getProductsById = async (event: APIGatewayEvent) => {
-	const productId = event.pathParameters?.id;
-	const productsList = await getMockedProducts();
-	const product = productsList.find(product => product.id === productId);
+	try {
+		const productId = event.pathParameters?.id;
 
-	if (!product) {
-		return formatBadRequestJSONResponse({
-			errorMessage: 'Product Not Found',
+		console.log(`getProductsById executed, product id: ${productId}`)
+
+		const productsService = new ProductsService();
+		const product = await productsService.getProductById(productId);
+
+		if (!product) {
+			return formatBadRequestJSONResponse({
+				errorMessage: 'Product Not Found',
+			});
+		}
+
+		return formatJSONResponse({
+			data: product,
+		});
+	} catch (error) {
+		return formatServerErrorJSONResponse({
+			error,
 		});
 	}
-
-	return formatJSONResponse({
-		data: product,
-	});
 };
 
 export const main = middyfy(getProductsById);
