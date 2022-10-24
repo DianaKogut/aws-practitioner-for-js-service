@@ -1,0 +1,33 @@
+openapi: 3.0.0
+components:
+  schemas: {}
+  securitySchemes: {}
+info:
+  title: Products Service
+  description: API for Products Service
+  version: '1'
+paths:
+  /products:
+    get:
+      operationId: getProductsList
+      summary: Get Products List
+      description: Get full list of products
+      responses:
+        '200':
+          description: Full list of products
+          content: {}
+        '400':
+          description: Bad Request
+          content: {}
+  '/products/{id}':
+    get:
+      operationId: getProductsById
+      summary: Get Product By Id
+      description: Get Product By Id
+      responses:
+        '200':
+          description: Founded product
+          content: {}
+        '400':
+          description: Bad Request
+          content: {}
