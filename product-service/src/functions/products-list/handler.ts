@@ -1,12 +1,22 @@
 import { formatJSONResponse } from '@libs/api-gateway';
 import { middyfy } from '@libs/lambda';
-import { getMockedProducts } from '../mock/products-mock';
+import { ProductsService } from 'src/services/products.service';
 
 const getProductsList = async () => {
-	const productsList = await getMockedProducts();
-	return formatJSONResponse({
-		data: productsList,
-	});
+	try {
+		console.log('getProductsList executed');
+
+		const productsService = new ProductsService();
+		const products = await productsService.getProducts();
+
+		return formatJSONResponse({
+			data: products,
+		});
+	} catch (err) {
+		return formatJSONResponse({
+			data: { err },
+		});
+	}
 };
 
 export const main = middyfy(getProductsList);

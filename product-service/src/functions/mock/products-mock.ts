@@ -1,4 +1,4 @@
-import { IProduct } from '@functions/product.models';
+import { IProduct } from 'src/models/product.models';
 import { v4 as uuid } from 'uuid';
 
 const PRODUCTS_MOCK: IProduct[] = [

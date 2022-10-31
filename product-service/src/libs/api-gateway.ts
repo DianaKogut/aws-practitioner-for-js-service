@@ -26,3 +26,11 @@ export const formatBadRequestJSONResponse = (response: Record<string, unknown>) 
 		body: `Bad Request: ${response?.errorMessage}`,
 	};
 }
+
+export const formatServerErrorJSONResponse = (response: Record<string, unknown>) => {
+	return {
+		statusCode: StatusCode.ServerError,
+		headers,
+		body: `Internal Server Error: ${response?.error}`,
+	};
+}
