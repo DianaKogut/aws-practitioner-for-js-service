@@ -1,5 +1,5 @@
 import { APIGatewayEvent, Context } from 'aws-lambda';
-import * as mockProducts from '../mock/products-mock';
+import * as mockProducts from '../../mock/products-mock';
 import { main as getProductsList } from './handler';
 
 describe('Get Products List', () => {

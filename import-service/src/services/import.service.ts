@@ -29,6 +29,7 @@ export class ImportService {
         parser
             .on('end', (data) => {
                 console.log(data);
+                this.sendSQSMessage(data);
             })
             .on('end', async () => {
                 const copyParams = {
@@ -45,5 +46,16 @@ export class ImportService {
             });
 
         s3Stream.pipe(parser);
+    }
+
+    private sendSQSMessage(data) {
+        const sqs = new AWS.SQS();
+
+        sqs.sendMessage({
+            QueueUrl: 'catalogItemsQueue',
+            MessageBody: data,
+        }, (err, data) => {
+            console.log('RES', err, data);
+        })
     }
 }

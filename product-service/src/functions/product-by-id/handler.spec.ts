@@ -1,6 +1,6 @@
 import { APIGatewayEvent, Context } from 'aws-lambda';
 import { main as getProductsById } from './handler';
-import * as mockProducts from '../mock/products-mock';
+import * as mockProducts from '../../mock/products-mock';
 import { StatusCode } from '@libs/http-status-codes';
 
 describe('Get Product By Id', () => {

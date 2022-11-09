@@ -1,4 +1,4 @@
-import { getMockedProducts } from '@functions/mock/products-mock';
+import { getMockedProducts } from 'src/mock/products-mock';
 import { IProduct } from 'src/models/product.models';
 import * as AWS from 'aws-sdk';
 
