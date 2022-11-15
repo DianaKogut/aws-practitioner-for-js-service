@@ -20,8 +20,8 @@ const serverlessConfiguration: AWS = {
 		environment: {
 			AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
 			NODE_OPTIONS: '--enable-source-maps --stack-trace-limit=1000',
-			DYNAMODB_PRODUCTS_TABLE: '${env:DYNAMODB_PRODUCTS_TABLE}',
-			DYNAMODB_STOCKS_TABLE: '${env:DYNAMODB_STOCKS_TABLE}'
+			DYNAMODB_PRODUCTS_TABLE: 'products',
+			DYNAMODB_STOCKS_TABLE: 'stocks'
 		},
 		iam: {
 			role: {
