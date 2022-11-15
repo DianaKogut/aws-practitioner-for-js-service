@@ -1,4 +1,4 @@
-import { ProductSchema } from '@functions/schemes/product.schema';
+import { ProductSchema } from 'src/schemes/product.schema';
 import { handlerPath } from '@libs/handler-resolver';
 import { StatusCode } from '@libs/http-status-codes';
 
