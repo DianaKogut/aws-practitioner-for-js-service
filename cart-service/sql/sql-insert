@@ -1,0 +1,2 @@
+insert into cart_items (cart_id, count) values 
+('055e5ace-089e-4571-a197-7f69861b80f1','0ea9fa20-1a04-4a39-b74c-39731aeb1672', 1)
