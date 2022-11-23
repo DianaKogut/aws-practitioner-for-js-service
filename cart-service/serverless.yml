@@ -1,0 +1,29 @@
+service: aws-practitioner-for-js-cart-service
+
+plugins:
+  - serverless-offline
+
+useDotenv: true
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  region: eu-west-1
+  environment:
+    PGHOST: '${env:PGHOST}'
+    PGUSER: '${env:PGUSER}'
+    PGDATABASE: '${env:PGDATABASE}'
+    PGPASSWORD: '${env:PGPASSWORD}'
+    PGPORT: '${env:PGPORT}'
+  
+
+functions:
+  main:
+    handler: dist/main.handler
+    events:
+      - http:
+          method: ANY
+          path: /
+      - http:
+          method: ANY
+          path: '{proxy+}'

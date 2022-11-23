@@ -15,6 +15,13 @@ export default {
                         },
                     },
                 },
+                authorizer: {
+                    name: 'basicAuthorizer',
+                    arn: 'arn:aws:lambda:eu-west-1:631014259051:function:authorization-service-dev-basicAuthorizer',
+                    resultItlInSeconds: 0,
+                    identitySource: 'method.request.header.Authorization',
+                    type: 'TOKEN',
+                },
                 documentation: {
                     summary: 'Import Products File',
                     description: 'Get full list of products fi;e',
